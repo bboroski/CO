@@ -5,6 +5,9 @@
 <p align="center"><a href="README.md">🇺🇦 Українська</a> · <a href="README.en.md">🇬🇧 English</a> · <a href="README.ru.md">🇷🇺 Русский</a></p>
 <hr />
 
+<p align="center"><img src="assets/nun-mesh.svg" alt="CO in the repository integration mesh" width="100%"></p>
+
+
 **Невеликий C11 runtime для передбачуваного запуску, виконання кроків і завершення вбудованих компонентів.**
 
 ## Продуктова роль
