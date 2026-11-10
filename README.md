@@ -99,3 +99,10 @@ CO remains the allocation-free C11 lifecycle runtime. Kloz services are optional
 - **Windows:** double-click `one.cmd` or run `./one.cmd`.
 - **Any OS:** run `python one.py` to build and execute this module's host verification in one step.
 - **Verification only:** run `python one.py check`. Host tests do not replace target timing, board, DMA, IRQ or hardware qualification.
+
+
+---
+
+## Duck UI system
+
+This repository follows the shared black/graphite and signal-yellow visual contract for its applicable user-facing tools. See [Duck UI System](docs/DUCK_UI_SYSTEM.md), the canonical [design tokens](design/duck-ui.tokens.json), and the scalable [duck mark](assets/duck-ui/duck-mark.svg). UI previews are explicitly distinguished from real runtime screenshots; embedded cores remain presentation-agnostic.
