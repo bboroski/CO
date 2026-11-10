@@ -1,77 +1,77 @@
-# CO — Deterministic Component Lifecycle Runtime
+<p align="center"><img src="assets/duck-ui/duck-mark.svg" alt="Duck mark" width="104" /></p>
+<h1 align="center">CO</h1>
+<p align="center"><strong>Deterministic Component Lifecycle Runtime</strong></p>
+<p align="center"><img src="https://img.shields.io/badge/STATUS-HOST-TESTED%20CORE-FFD600?style=for-the-badge&labelColor=111111" /><img src="https://img.shields.io/badge/CORE-C11-FFD600?style=for-the-badge&labelColor=111111" /><img src="https://img.shields.io/badge/LICENSE-MIT-FFD600?style=for-the-badge&labelColor=111111" /></p>
+<p align="center"><a href="README.md">🇺🇦 Українська</a> · <a href="README.en.md">🇬🇧 English</a> · <a href="README.ru.md">🇷🇺 Русский</a></p>
+<hr />
 
-**Детерминированная среда управления жизненным циклом встроенных компонентов на C11.**
+**Компактный runtime на C11 для предсказуемого запуска, выполнения рабочих шагов и остановки embedded-компонентов.**
 
-CO запускает компоненты в заданном порядке, выполняет ограниченные шаги работы, сохраняет состояние ошибок и корректно завершает частично или полностью инициализированные компоненты. Библиотека не создаёт потоки, не реализует RTOS и не захватывает аппаратные ресурсы скрытым образом.
+## Позиционирование
 
-[Українська](README.md) · [English](README.en.md) · [Русский](README.ru.md)
+CO предоставляет явный жизненный цикл компонентам, которым не нужна полноценная RTOS. Он разделяет инициализацию, рабочий шаг, ошибку и остановку, оставляя владение памятью и контекстом выполнения вызывающей стороне.
 
 ## Реализованные возможности
 
-- Явная конечная машина состояний, включая защищённое состояние STEPPING.
-- Runtime-объект с памятью вызывающей стороны; heap не используется.
-- Callback-интерфейсы init, step и shutdown.
+- Явная машина состояний, включая защищённое состояние <code>STEPPING</code>.
+- Runtime-объект на памяти, принадлежащей вызывающей стороне; heap не используется.
+- Callback-интерфейсы <code>init</code>, <code>step</code> и <code>shutdown</code>.
 - Передача ошибок callbacks и сохранение последнего результата.
-- Насыщающий счётчик циклов исполнения.
-- Отклонение рекурсивных poll/stop, пока callback выполняется.
-- Host-тесты запуска, ошибки выполнения, очистки после частичной инициализации и защиты от рекурсии.
+- Насыщающий счётчик циклов выполнения.
+- Отказ от рекурсивных вызовов <code>poll</code>/<code>stop</code> во время callback.
+- Host-тесты запуска, ошибок, частичной инициализации и защиты от рекурсии.
 
 ## Модель состояний
 
 ~~~text
-STOPPED --start--> STARTING --init OK--> RUNNING
-                       |                    |
-                    init error             poll
-                       |                    v
-                       +------> FAULTED  STEPPING
-                                  ^        |   |
-                                  |        |   +-- step OK --> RUNNING
-                                  +--------+
-                                   step error
-
-FAULTED --stop--> STOPPING --> STOPPED
-RUNNING --stop--> STOPPING --> STOPPED
+STOPPED -> STARTING -> RUNNING -> STEPPING -> RUNNING
+              |          |          |
+              +--------> FAULTED <---+
+FAULTED -> STOPPING -> STOPPED
+RUNNING -> STOPPING -> STOPPED
 ~~~
 
-Callback завершения вызывается после попытки инициализации, даже при частичной ошибке. Поэтому он должен корректно обрабатывать неполную настройку.
+Callback завершения вызывается после попытки инициализации, включая частичную неудачу. Он должен корректно обрабатывать неполную настройку.
 
-## Сборка и тесты
+## Сборка и проверка
+
+Нужны компилятор C11 и Make.
 
 ~~~sh
 make test
 make clean
 ~~~
 
-Требуются C11-компилятор и Make. GitHub Actions выполняет host-тесты с GCC и Clang.
+GitHub Actions запускает host-тесты с GCC и Clang. Единая точка запуска: <code>python one.py</code>; проверки: <code>python one.py check</code>.
+
+## Управление проектом и критерии выпуска
+
+| Контрольная точка | Правило |
+|---|---|
+| Память | Runtime использует память, предоставленную вызывающей стороной |
+| Жизненный цикл | Состояния и ошибки заданы явно |
+| Callback safety | Рекурсивные poll/stop отклоняются |
+| Host CI | Проверки GCC и Clang должны проходить |
+| Интеграция | Вызывающая сторона сериализует доступ из независимых контекстов |
 
 ## Границы ответственности
 
-- CO не владеет allocator: память runtime предоставляет вызывающая сторона.
+- CO не владеет allocator и не создаёт heap.
 - CO не реализует preemption или interrupt scheduler.
 - CO не записывает MMIO-регистры.
 - Вызывающая сторона сериализует доступ из независимых контекстов исполнения.
 - Политика планирования, приоритеты, deadlines и watchdog остаются отдельными модулями.
 
-Канонический API использует префикс co_. Старый заголовок co/runtime.h предоставляет source-level псевдонимы; бинарные файлы, скомпилированные со старыми символами, необходимо перелинковать.
+Канонический API использует префикс <code>co_</code>. Старый заголовок <code>co/runtime.h</code> предоставляет source-level псевдонимы; бинарные файлы со старыми символами нужно перелинковать.
 
 ## Документация
 
-- [Модель исполнения](docs/execution-model.md)
+- [Модель выполнения](docs/execution-model.md)
+
+## Экосистема
+
+[SAMBU](https://github.com/bboroski/SAMBU) · [ToolNG](https://github.com/bboroski/ToolNG) · [ReaperCripple](https://github.com/bboroski/ReaperCripple) · [Kloz](https://github.com/bboroski/Kloz) · [SaintSI](https://github.com/bboroski/SaintSI) · [Klipot](https://github.com/bboroski/Klipot) · [NUN](https://github.com/bboroski/NUN) · [NUNLauncher](https://github.com/bboroski/NUNLauncher).
 
 ## Лицензия
 
 MIT — см. [LICENSE](LICENSE).
-
-
-## Запуск одной командой
-
-- **Windows:** дважды щёлкните `one.cmd` или запустите его из терминала.
-- **Любая ОС:** `python one.py` выполняет стандартную host-сборку и тесты; `python one.py check` явно запускает проверку.
-- Модуль остаётся самостоятельной библиотекой C11; host-тесты не заменяют проверку интеграции на целевой платформе.
-
-## Академический биологический словарь
-
-- [500 академических терминов EN–RU](data/biology/academic_terms_500.tsv)
-- [Контракт данных и границы использования](docs/BIOLOGY_DOMAIN_PACK.md)
-
-Автономный справочный набор для обучения и метаданных; он не управляет системами, устройствами или диагностикой.
