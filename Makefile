@@ -11,7 +11,7 @@ all: test
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
-$(TEST_BIN): src/runtime.c tests/test_runtime.c include/co/runtime.h | $(BUILD_DIR)
+$(TEST_BIN): src/runtime.c tests/test_runtime.c include/dlo/runtime.h include/co/runtime.h | $(BUILD_DIR)
 	$(CC) $(CPPFLAGS) $(CFLAGS) src/runtime.c tests/test_runtime.c -o $@
 
 test: $(TEST_BIN)
