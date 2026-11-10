@@ -78,6 +78,10 @@ See the [SAMBU integration protocol](https://github.com/bboroski/Klipot/blob/mai
 [Shared integration protocol](https://github.com/bboroski/Klipot/blob/main/docs/INTEGRATION_PROTOCOL.md) · [Klipot control portal](https://github.com/bboroski/Klipot)
 
 
+## Multilingual pipeline lifecycle
+
+CO can run each analysis stage as one bounded callback and retain failures without hidden retries. See [Signal Pipeline Lifecycle](docs/SIGNAL_PIPELINE_LIFECYCLE.md) and the [SAMBU metadata contract](https://github.com/bboroski/SAMBU/blob/main/docs/MULTILINGUAL_SIGNAL_PIPELINE.md).
+
 ## SAMBU Ecosystem module
 
 CO remains the allocation-free C11 lifecycle runtime. Kloz services are optional application-supplied adapters, not a required CO core dependency.
