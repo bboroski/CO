@@ -1,7 +1,7 @@
 {
   "module_id": "co-lifecycle",
   "repository": "bboroski/CO",
-  "display_name": "CO",
+  "display_name": "DCLR — Deterministic Component Lifecycle Runtime",
   "version": null,
   "role": "deterministic-component-lifecycle-runtime",
   "runtime": [
