@@ -92,3 +92,10 @@ CO remains the allocation-free C11 lifecycle runtime. Kloz services are optional
 
 
 [SAMBU Ecosystem portal](https://bboroski.github.io/Klipot/) · [Klipot integration protocol](https://github.com/bboroski/Klipot/blob/main/docs/INTEGRATION_PROTOCOL.md)
+
+
+## One-knob workflow / Один запуск / Запуск однією командою
+
+- **Windows:** double-click `one.cmd` or run `./one.cmd`.
+- **Any OS:** run `python one.py` to build and execute this module's host verification in one step.
+- **Verification only:** run `python one.py check`. Host tests do not replace target timing, board, DMA, IRQ or hardware qualification.
