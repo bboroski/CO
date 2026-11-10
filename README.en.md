@@ -1,8 +1,8 @@
-# DLO — Deterministic Lifecycle Orchestrator
+# CO — Deterministic Component Lifecycle Runtime
 
 **A deterministic C11 lifecycle runtime for embedded components.**
 
-DLO brings components online in a defined order, executes bounded work steps, preserves failure state, and performs cleanup after partial or complete initialization. It does not create threads, implement an RTOS, or silently acquire hardware resources.
+CO brings components online in a defined order, executes bounded work steps, preserves failure state, and performs cleanup after partial or complete initialization. It does not create threads, implement an RTOS, or silently acquire hardware resources.
 
 [Українська](README.md) · [English](README.en.md) · [Русский](README.ru.md)
 
@@ -46,13 +46,13 @@ Requires a C11 compiler and Make. GitHub Actions runs host tests with GCC and Cl
 
 ## Responsibility boundary
 
-- DLO does not own an allocator; runtime storage is supplied by the caller.
-- DLO does not implement preemption or an interrupt scheduler.
-- DLO does not write MMIO registers.
+- CO does not own an allocator; runtime storage is supplied by the caller.
+- CO does not implement preemption or an interrupt scheduler.
+- CO does not write MMIO registers.
 - The caller serializes access from independent execution contexts.
 - Scheduling policy, priorities, deadlines, and watchdog policy remain separate modules.
 
-The canonical API uses the dlo_ prefix. The legacy co/runtime.h header provides source-level aliases; binaries linked against previous symbols must be relinked.
+The canonical API uses the co_ prefix. The legacy co/runtime.h header provides source-level aliases; binaries linked against previous symbols must be relinked.
 
 ## Documentation
 
