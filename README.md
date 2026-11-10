@@ -78,3 +78,7 @@ GitHub Actions запускає host-тести з GCC і Clang. One-knob runner
 ## Ліцензія
 
 MIT — див. [LICENSE](LICENSE).
+
+## Reaper cycle lifecycle mapping
+
+[Lifecycle adapter contract](docs/REAPER_LIFECYCLE_ADAPTER.md) — maps bounded simulation work onto CO init/step/shutdown hooks without unbounded task creation.
