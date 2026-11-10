@@ -21,6 +21,7 @@ typedef enum {
     CO_STATE_STOPPED = 0,
     CO_STATE_STARTING,
     CO_STATE_RUNNING,
+    CO_STATE_STEPPING,
     CO_STATE_FAULTED,
     CO_STATE_STOPPING
 } co_state_t;
@@ -50,7 +51,7 @@ co_result_t co_runtime_init(co_runtime_t *runtime, const co_hooks_t *hooks);
 /* Valid only from STOPPED. Failed init leaves FAULTED and still requires stop. */
 co_result_t co_runtime_start(co_runtime_t *runtime);
 
-/* Executes one step callback. A nonzero callback result faults the runtime. */
+/* Executes one step callback; recursive poll/stop calls are rejected. */
 co_result_t co_runtime_poll(co_runtime_t *runtime);
 
 /* Performs cleanup at most once; safe to call repeatedly after STOPPED. */

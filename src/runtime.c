@@ -55,6 +55,7 @@ co_result_t co_runtime_poll(co_runtime_t *runtime)
         return CO_ESTATE;
     }
 
+    runtime->state = CO_STATE_STEPPING;
     result = runtime->hooks.step(runtime->hooks.context);
     if (runtime->cycle_count < UINT32_MAX) {
         runtime->cycle_count++;
@@ -66,6 +67,7 @@ co_result_t co_runtime_poll(co_runtime_t *runtime)
         return result;
     }
 
+    runtime->state = CO_STATE_RUNNING;
     return CO_OK;
 }
 
@@ -78,6 +80,7 @@ co_result_t co_runtime_stop(co_runtime_t *runtime)
         return CO_OK;
     }
     if (runtime->state == CO_STATE_STARTING ||
+        runtime->state == CO_STATE_STEPPING ||
         runtime->state == CO_STATE_STOPPING) {
         return CO_EBUSY;
     }
