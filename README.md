@@ -78,3 +78,8 @@ GitHub Actions запускає host-тести з GCC і Clang. One-knob runner
 ## Ліцензія
 
 MIT — див. [LICENSE](LICENSE).
+
+
+## Verified AI-assisted engineering
+
+This repository's model-assisted review boundary and acceptance rules are documented in [AI-generated plan contract](docs/AI_GENERATED_PLAN_CONTRACT.md). AI output remains advisory until independently validated.
