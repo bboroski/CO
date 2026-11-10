@@ -85,3 +85,6 @@ CO remains the allocation-free C11 lifecycle runtime. Kloz services are optional
 - **Module manifest:** [`sambu.module.json`](sambu.module.json)
 - **Canonical architecture:** [SAMBU Ecosystem Architecture](https://github.com/bboroski/SAMBU/blob/main/docs/ECOSYSTEM_ARCHITECTURE.md)
 - **Shared integration protocol:** [Klipot protocol](https://github.com/bboroski/Klipot/blob/main/docs/INTEGRATION_PROTOCOL.md)
+
+
+[NUN Mesh portal](https://bboroski.github.io/Klipot/) · [Klipot integration protocol](https://github.com/bboroski/Klipot/blob/main/docs/INTEGRATION_PROTOCOL.md)
