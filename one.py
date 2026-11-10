@@ -29,6 +29,9 @@ def check() -> None:
     binary = out / ("test_runtime.exe" if sys.platform == "win32" else "test_runtime")
     run("Compile CO runtime test", [compiler, "-std=c11", "-O2", "-Wall", "-Wextra", "-Werror", "-pedantic", "-Iinclude", "src/runtime.c", "tests/test_runtime.c", "-o", str(binary)])
     run("Run CO runtime test", [str(binary)])
+    compat = out / ("test_compat.exe" if sys.platform == "win32" else "test_compat")
+    run("Compile DLO compatibility test", [compiler, "-std=c11", "-O2", "-Wall", "-Wextra", "-Werror", "-pedantic", "-Iinclude", "src/runtime.c", "tests/test_compat.c", "-o", str(compat)])
+    run("Run DLO compatibility test", [str(compat)])
 
 
 def main() -> int:
