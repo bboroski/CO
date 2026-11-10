@@ -30,7 +30,7 @@ Use yellow for active navigation, explicit operator actions and focus only. Life
 - Separate lifecycle state, callback diagnostics, timing evidence and operator commands.
 - Show fault retention and partial-initialization cleanup as distinct facts.
 - Require explicit confirmation for stop/restart actions and show the target component.
-- Support 85–150% zoom, OS DPI, keyboard navigation, visible focus, high-contrast mode and reduced motion.
+- Support 80–160% zoom, OS DPI, keyboard navigation, visible focus, high-contrast mode and reduced motion.
 - Keep logs and diagnostic reports in-app; export is optional.
 - Never imply that CO provides preemption, a scheduler or independent thread safety.
 
