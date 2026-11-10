@@ -88,3 +88,9 @@ GitHub Actions запускає host-тести з GCC і Clang. One-knob runner
 ## Reaper cycle lifecycle mapping
 
 [Lifecycle adapter contract](docs/REAPER_LIFECYCLE_ADAPTER.md) — maps bounded simulation work onto CO init/step/shutdown hooks without unbounded task creation.
+
+## NUN Mesh
+
+<p align="center"><img src="assets/nun-mesh.svg" alt="NUN Mesh architecture map" width="960" /></p>
+
+NUN Mesh documents CO as the deterministic component-lifecycle layer between portable platform services and higher-level supervisors. The diagram describes repository boundaries and contract links; it is not a live runtime graph.
