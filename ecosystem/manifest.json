@@ -1,0 +1,23 @@
+{
+  "project_id": "co",
+  "schema_version": 1,
+  "contract_major": 1,
+  "role": "lifecycle-runtime",
+  "provides": [
+    "deterministic-lifecycle",
+    "bounded-poll",
+    "rollback-aware-shutdown"
+  ],
+  "consumes": [
+    "application-callbacks"
+  ],
+  "optional_adapters": [
+    "Kloz platform callbacks",
+    "SaintSI heartbeat observer"
+  ],
+  "safety": [
+    "No threads or scheduler",
+    "Caller serializes access",
+    "No implicit retry"
+  ]
+}
