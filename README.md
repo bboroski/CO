@@ -4,7 +4,7 @@
 
 Its responsibility is to bring components online in a defined order, execute bounded work steps, preserve failure state, and perform cleanup after partial or complete initialization.
 
-CO is the control layer of the NUN system. It is not an RTOS, does not create threads, and does not silently acquire hardware resources.
+CO is the control layer of the SAMBU Ecosystem. It is not an RTOS, does not create threads, and does not silently acquire hardware resources.
 
 ## Initial implementation
 
@@ -55,13 +55,13 @@ Requires a C11 compiler and Make. GitHub Actions runs the host tests with GCC an
 See [docs/execution-model.md](docs/execution-model.md).
 
 
-## NUN Mesh integration
+## SAMBU Ecosystem integration
 
-<p align="center"><img src="assets/nun-mesh.svg" width="100%" alt="CO highlighted within the NUN Mesh project ecosystem"></p>
+<p align="center"><img src="assets/nun-mesh.svg" width="100%" alt="CO highlighted within the SAMBU Ecosystem project ecosystem"></p>
 
 CO owns deterministic component lifecycle: initialization, one bounded step per poll, fault retention and cleanup. Its portable state machine remains independent of any OS, hardware register map or health policy.
 
-## Mesh connections
+## SAMBU connections
 
 - **Kloz:** an application may place a validated Kloz platform-ops pointer in callback context. CO itself does not call MMIO or require Kloz.
 - **SaintSI:** call the optional bridge after a successful start and after each completed poll. A faulted runtime deliberately stops refreshing its heartbeat so the observer can report staleness.
@@ -72,7 +72,16 @@ CO owns deterministic component lifecycle: initialization, one bounded step per 
 
 The optional header include/co/saintsi_bridge.h requires both include roots on the consumer's include path. It does not change the core library or build flags. The host application supplies the timebase in SaintSI ticks and decides what a degraded result means.
 
-See the [mesh protocol](https://github.com/bboroski/Klipot/blob/main/docs/INTEGRATION_PROTOCOL.md) and [SaintSI](https://github.com/bboroski/SaintSI).
+See the [SAMBU integration protocol](https://github.com/bboroski/Klipot/blob/main/docs/INTEGRATION_PROTOCOL.md) and [SaintSI](https://github.com/bboroski/SaintSI).
 
 
 [Shared integration protocol](https://github.com/bboroski/Klipot/blob/main/docs/INTEGRATION_PROTOCOL.md) · [Klipot control portal](https://github.com/bboroski/Klipot)
+
+
+## SAMBU Ecosystem module
+
+CO remains the allocation-free C11 lifecycle runtime. Kloz services are optional application-supplied adapters, not a required CO core dependency.
+
+- **Module manifest:** [`sambu.module.json`](sambu.module.json)
+- **Canonical architecture:** [SAMBU Ecosystem Architecture](https://github.com/bboroski/SAMBU/blob/main/docs/ECOSYSTEM_ARCHITECTURE.md)
+- **Shared integration protocol:** [Klipot protocol](https://github.com/bboroski/Klipot/blob/main/docs/INTEGRATION_PROTOCOL.md)
