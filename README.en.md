@@ -78,3 +78,8 @@ The canonical API uses the <code>co_</code> prefix. The old <code>co/runtime.h</
 ## License
 
 Earlier project documentation declared MIT, but this repository has no LICENSE file. Confirm the license and add its full text before distribution.
+
+
+## Product system
+
+Shared Duck design, multilingual documentation, capability governance, marketing-claim controls and release rules: [docs/PRODUCT_SYSTEM.md](docs/PRODUCT_SYSTEM.md). The 10,000-ID registry is planning capacity, not a claim of 10,000 shipped functions.
