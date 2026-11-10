@@ -1,77 +1,77 @@
-# CO — Deterministic Component Lifecycle Runtime
+<p align="center"><img src="assets/duck-ui/duck-mark.svg" alt="Duck mark" width="104" /></p>
+<h1 align="center">CO</h1>
+<p align="center"><strong>Deterministic Component Lifecycle Runtime</strong></p>
+<p align="center"><img src="https://img.shields.io/badge/STATUS-HOST-TESTED%20CORE-FFD600?style=for-the-badge&labelColor=111111" /><img src="https://img.shields.io/badge/CORE-C11-FFD600?style=for-the-badge&labelColor=111111" /><img src="https://img.shields.io/badge/LICENSE-MIT-FFD600?style=for-the-badge&labelColor=111111" /></p>
+<p align="center"><a href="README.md">🇺🇦 Українська</a> · <a href="README.en.md">🇬🇧 English</a> · <a href="README.ru.md">🇷🇺 Русский</a></p>
+<hr />
 
-**Детерміноване C11-середовище керування життєвим циклом вбудованих компонентів.**
+**Невеликий C11 runtime для передбачуваного запуску, виконання кроків і завершення вбудованих компонентів.**
 
-CO запускає компоненти у визначеному порядку, виконує обмежені робочі кроки, зберігає стан помилки та коректно завершує частково або повністю ініціалізовані компоненти. Бібліотека не створює потоків, не реалізує RTOS і непомітно не захоплює апаратні ресурси.
+## Продуктова роль
 
-[Українська](README.md) · [English](README.en.md) · [Русский](README.ru.md)
+CO надає зрозумілий життєвий цикл для компонентів, яким не потрібен повноцінний RTOS. Бібліотека розділяє ініціалізацію, робочий крок, помилку та зупинку, залишаючи контроль над пам'яттю й контекстом виконання у викликачеві.
 
 ## Реалізовані можливості
 
-- Явна машина станів життєвого циклу, включно із захищеним станом STEPPING.
-- Runtime-об’єкт із пам’яттю, що належить викликачеві; heap не використовується.
-- Callback-інтерфейси init, step і shutdown.
+- Явна машина станів, включно із захищеним станом <code>STEPPING</code>.
+- Runtime-об'єкт із пам'яттю, що належить викликачеві; heap не використовується.
+- Callback-інтерфейси <code>init</code>, <code>step</code> і <code>shutdown</code>.
 - Передавання помилок callbacks і збереження останнього результату.
 - Насичувальний лічильник циклів виконання.
-- Відхилення рекурсивних poll/stop під час виконання callback.
-- Host-тести старту, помилки виконання, очищення після часткової ініціалізації та захисту від рекурсії.
+- Відхилення рекурсивних <code>poll</code>/<code>stop</code> під час callback.
+- Host-тести старту, помилок, часткової ініціалізації та захисту від рекурсії.
 
 ## Модель станів
 
 ~~~text
-STOPPED --start--> STARTING --init OK--> RUNNING
-                       |                    |
-                    init error             poll
-                       |                    v
-                       +------> FAULTED  STEPPING
-                                  ^        |   |
-                                  |        |   +-- step OK --> RUNNING
-                                  +--------+
-                                   step error
-
-FAULTED --stop--> STOPPING --> STOPPED
-RUNNING --stop--> STOPPING --> STOPPED
+STOPPED -> STARTING -> RUNNING -> STEPPING -> RUNNING
+              |          |          |
+              +--------> FAULTED <---+
+FAULTED -> STOPPING -> STOPPED
+RUNNING -> STOPPING -> STOPPED
 ~~~
 
-Callback завершення викликається після спроби ініціалізації, зокрема після часткової невдачі. Тому він має коректно обробляти неповне налаштування.
+Callback завершення викликається після спроби ініціалізації, зокрема після часткової невдачі. Він має коректно обробляти неповне налаштування.
 
-## Збірка й тести
+## Збірка та перевірка
+
+Потрібні C11-компілятор і Make.
 
 ~~~sh
 make test
 make clean
 ~~~
 
-Потрібні C11-компілятор і Make. GitHub Actions запускає host-тести з GCC і Clang.
+GitHub Actions запускає host-тести з GCC і Clang. One-knob runner: <code>python one.py</code>; перевірки: <code>python one.py check</code>.
+
+## Управління проєктом і критерії випуску
+
+| Контрольна точка | Правило |
+|---|---|
+| Пам'ять | Runtime використовує пам'ять, надану викликачем |
+| Життєвий цикл | Стани та помилки є явними |
+| Callback safety | Рекурсивні poll/stop відхиляються |
+| Host CI | Перевірки GCC і Clang мають проходити |
+| Інтеграція | Викликач серіалізує доступ між незалежними контекстами |
 
 ## Межі відповідальності
 
-- CO не володіє allocator: пам’ять runtime надає викликач.
+- CO не володіє allocator і не створює heap.
 - CO не реалізує preemption або interrupt scheduler.
 - CO не записує MMIO-регістри.
 - Викликач серіалізує доступ із незалежних контекстів виконання.
 - Політика планування, пріоритети, deadlines і watchdog залишаються окремими модулями.
 
-Канонічний API використовує префікс co_. Старий заголовок co/runtime.h надає source-level псевдоніми; бінарні файли, скомпільовані зі старими символами, потрібно перелінкувати.
+Канонічний API використовує префікс <code>co_</code>. Старий заголовок <code>co/runtime.h</code> надає source-level псевдоніми; бінарні файли зі старими символами потрібно перелінкувати.
 
 ## Документація
 
 - [Модель виконання](docs/execution-model.md)
 
+## Екосистема
+
+[SAMBU](https://github.com/bboroski/SAMBU) · [ToolNG](https://github.com/bboroski/ToolNG) · [ReaperCripple](https://github.com/bboroski/ReaperCripple) · [Kloz](https://github.com/bboroski/Kloz) · [SaintSI](https://github.com/bboroski/SaintSI) · [Klipot](https://github.com/bboroski/Klipot) · [NUN](https://github.com/bboroski/NUN) · [NUNLauncher](https://github.com/bboroski/NUNLauncher).
+
 ## Ліцензія
 
 MIT — див. [LICENSE](LICENSE).
-
-
-## Запуск однією командою
-
-- **Windows:** двічі клацніть `one.cmd` або запустіть його з термінала.
-- **Будь-яка ОС:** `python one.py` виконує стандартний host build і тести; `python one.py check` запускає ту саму перевірку явно.
-- Модуль залишається окремою C11-бібліотекою; host-тести не замінюють перевірку інтеграції на цільовій платформі.
-
-## Академический биологический словарь
-
-- [500 академических терминов EN–RU](data/biology/academic_terms_500.tsv)
-- [Контракт и правила использования](docs/BIOLOGY_DOMAIN_PACK.md)
-
-Справочный офлайн-набор для обучения и метаданных; он не управляет системами, устройствами и диагностикой.
