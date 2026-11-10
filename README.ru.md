@@ -5,6 +5,9 @@
 <p align="center"><a href="README.md">🇺🇦 Українська</a> · <a href="README.en.md">🇬🇧 English</a> · <a href="README.ru.md">🇷🇺 Русский</a></p>
 <hr />
 
+<p align="center"><img src="assets/nun-mesh.svg" alt="CO in the repository integration mesh" width="100%"></p>
+
+
 **Компактный runtime на C11 для предсказуемого запуска, выполнения рабочих шагов и остановки embedded-компонентов.**
 
 ## Позиционирование
