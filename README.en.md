@@ -68,3 +68,10 @@ MIT — see [LICENSE](LICENSE).
 - **Windows:** double-click `one.cmd` or run it from a terminal.
 - **Any OS:** `python one.py` performs the default host build and tests; `python one.py check` requests verification explicitly.
 - This remains an independent C11 library; host tests do not replace integration testing on the target platform.
+
+## Academic biology glossary
+
+- [500 academic terms EN–RU](data/biology/academic_terms_500.tsv)
+- [Data contract and usage boundaries](docs/BIOLOGY_DOMAIN_PACK.md)
+
+An offline reference pack for education and metadata; it does not control systems, devices or diagnostics.
