@@ -53,3 +53,8 @@ Requires a C11 compiler and Make. GitHub Actions runs the host tests with GCC an
 - Scheduling policy, priorities, deadlines, and watchdog policy remain explicit future modules.
 
 See [docs/execution-model.md](docs/execution-model.md).
+
+
+## NUN Ecosystem integration
+
+CO stays a deterministic lifecycle primitive, not an RTOS or distributed scheduler. Its resource admission, cooperative work and event-reporting responsibilities are defined in [Archetype Runtime Mapping](docs/ARCHETYPE_RUNTIME_MAPPING.md). The cross-repository dependency contract is maintained by [Klipot](https://github.com/bboroski/Klipot).
