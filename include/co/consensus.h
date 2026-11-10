@@ -1,6 +1,8 @@
 #ifndef CO_CONSENSUS_H
 #define CO_CONSENSUS_H
 
+#include "co/runtime.h"
+
 #include <stddef.h>
 #include <stdint.h>
 
