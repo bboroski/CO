@@ -1,77 +1,77 @@
-# CO — Deterministic Component Lifecycle Runtime
+<p align="center"><img src="assets/duck-ui/duck-mark.svg" alt="Duck mark" width="104" /></p>
+<h1 align="center">CO</h1>
+<p align="center"><strong>Deterministic Component Lifecycle Runtime</strong></p>
+<p align="center"><img src="https://img.shields.io/badge/STATUS-HOST-TESTED%20CORE-FFD600?style=for-the-badge&labelColor=111111" /><img src="https://img.shields.io/badge/CORE-C11-FFD600?style=for-the-badge&labelColor=111111" /><img src="https://img.shields.io/badge/LICENSE-MIT-FFD600?style=for-the-badge&labelColor=111111" /></p>
+<p align="center"><a href="README.md">🇺🇦 Українська</a> · <a href="README.en.md">🇬🇧 English</a> · <a href="README.ru.md">🇷🇺 Русский</a></p>
+<hr />
 
-**A deterministic C11 lifecycle runtime for embedded components.**
+**A compact C11 runtime for predictable startup, work steps, and shutdown of embedded components.**
 
-CO brings components online in a defined order, executes bounded work steps, preserves failure state, and performs cleanup after partial or complete initialization. It does not create threads, implement an RTOS, or silently acquire hardware resources.
+## Product position
 
-[Українська](README.md) · [English](README.en.md) · [Русский](README.ru.md)
+CO provides an explicit lifecycle for components that do not need a full RTOS. It separates initialization, work, failure, and shutdown while leaving memory ownership and execution context under caller control.
 
 ## Implemented capabilities
 
-- Explicit lifecycle state machine, including a guarded STEPPING state.
-- Caller-owned runtime object; no heap allocation.
-- init, step, and shutdown callback interface.
-- Callback error propagation and retained last result.
+- Explicit state machine, including the guarded <code>STEPPING</code> state.
+- Runtime object backed by caller-owned memory; no heap is used.
+- <code>init</code>, <code>step</code>, and <code>shutdown</code> callbacks.
+- Callback error propagation and preservation of the last result.
 - Saturating execution-cycle counter.
-- Recursive poll/stop calls are rejected while a callback is executing.
-- Host tests for startup, execution failure, partial-init cleanup, and recursion guards.
+- Rejection of recursive <code>poll</code>/<code>stop</code> calls during a callback.
+- Host tests for startup, failures, partial initialization, and recursion protection.
 
 ## State model
 
 ~~~text
-STOPPED --start--> STARTING --init OK--> RUNNING
-                       |                    |
-                    init error             poll
-                       |                    v
-                       +------> FAULTED  STEPPING
-                                  ^        |   |
-                                  |        |   +-- step OK --> RUNNING
-                                  +--------+
-                                   step error
-
-FAULTED --stop--> STOPPING --> STOPPED
-RUNNING --stop--> STOPPING --> STOPPED
+STOPPED -> STARTING -> RUNNING -> STEPPING -> RUNNING
+              |          |          |
+              +--------> FAULTED <---+
+FAULTED -> STOPPING -> STOPPED
+RUNNING -> STOPPING -> STOPPED
 ~~~
 
-The shutdown callback runs after initialization has been attempted, including partial initialization failure. It must therefore tolerate incomplete setup.
+The shutdown callback is invoked after an initialization attempt, including partial failure. It must handle incomplete setup safely.
 
-## Build and test
+## Build and verify
+
+Requires a C11 compiler and Make.
 
 ~~~sh
 make test
 make clean
 ~~~
 
-Requires a C11 compiler and Make. GitHub Actions runs host tests with GCC and Clang.
+GitHub Actions runs host tests with GCC and Clang. One-knob runner: <code>python one.py</code>; checks: <code>python one.py check</code>.
 
-## Responsibility boundary
+## Project management and release gates
 
-- CO does not own an allocator; runtime storage is supplied by the caller.
+| Gate | Rule |
+|---|---|
+| Memory | Runtime uses caller-provided storage |
+| Lifecycle | States and failures are explicit |
+| Callback safety | Recursive poll/stop calls are rejected |
+| Host CI | GCC and Clang checks must pass |
+| Integration | The caller serializes access across independent execution contexts |
+
+## Responsibility boundaries
+
+- CO does not own an allocator and does not create a heap.
 - CO does not implement preemption or an interrupt scheduler.
 - CO does not write MMIO registers.
 - The caller serializes access from independent execution contexts.
-- Scheduling policy, priorities, deadlines, and watchdog policy remain separate modules.
+- Scheduling policy, priorities, deadlines, and watchdog remain separate modules.
 
-The canonical API uses the co_ prefix. The legacy co/runtime.h header provides source-level aliases; binaries linked against previous symbols must be relinked.
+The canonical API uses the <code>co_</code> prefix. The old <code>co/runtime.h</code> header provides source-level aliases; binaries using old symbols must be relinked.
 
 ## Documentation
 
-- [Execution Model](docs/execution-model.md)
+- [Execution model](docs/execution-model.md)
+
+## Ecosystem
+
+[SAMBU](https://github.com/bboroski/SAMBU) · [ToolNG](https://github.com/bboroski/ToolNG) · [ReaperCripple](https://github.com/bboroski/ReaperCripple) · [Kloz](https://github.com/bboroski/Kloz) · [SaintSI](https://github.com/bboroski/SaintSI) · [Klipot](https://github.com/bboroski/Klipot) · [NUN](https://github.com/bboroski/NUN) · [NUNLauncher](https://github.com/bboroski/NUNLauncher).
 
 ## License
 
 MIT — see [LICENSE](LICENSE).
-
-
-## One-knob launch
-
-- **Windows:** double-click `one.cmd` or run it from a terminal.
-- **Any OS:** `python one.py` performs the default host build and tests; `python one.py check` requests verification explicitly.
-- This remains an independent C11 library; host tests do not replace integration testing on the target platform.
-
-## Academic biology glossary
-
-- [500 academic terms EN–RU](data/biology/academic_terms_500.tsv)
-- [Data contract and usage boundaries](docs/BIOLOGY_DOMAIN_PACK.md)
-
-An offline reference pack for education and metadata; it does not control systems, devices or diagnostics.
