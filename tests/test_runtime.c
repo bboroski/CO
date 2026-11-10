@@ -1,4 +1,4 @@
-#include "dlo/runtime.h
+#include "dlo/runtime.h"
 
 #include <assert.h>
 #include <stdio.h>
