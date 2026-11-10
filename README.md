@@ -4,7 +4,7 @@
 
 Its responsibility is to bring components online in a defined order, execute bounded work steps, preserve failure state, and perform cleanup after partial or complete initialization.
 
-CO is the control layer of the NUN system. It is not an RTOS, does not create threads, and does not silently acquire hardware resources.
+CO is the deterministic lifecycle-control layer in the unified embedded runtime stack. It is not an RTOS, does not create threads, and does not silently acquire hardware resources.
 
 ## Initial implementation
 
@@ -52,4 +52,4 @@ Requires a C11 compiler and Make. GitHub Actions runs the host tests with GCC an
 - The caller serializes access from independent execution contexts.
 - Scheduling policy, priorities, deadlines, and watchdog policy remain explicit future modules.
 
-See [docs/execution-model.md](docs/execution-model.md).
+See [docs/execution-model.md](docs/execution-model.md) and [the cross-repository integration contract](docs/PLATFORM_INTEGRATION.md).
