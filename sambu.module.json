@@ -1,0 +1,45 @@
+{
+  "module_id": "co-lifecycle",
+  "repository": "bboroski/CO",
+  "display_name": "CO",
+  "version": null,
+  "role": "deterministic-component-lifecycle-runtime",
+  "runtime": [
+    "C11",
+    "Allocation-free caller-owned runtime"
+  ],
+  "maturity": "host-tested-core",
+  "provides": [
+    "lifecycle-state-machine",
+    "bounded-poll-step",
+    "fault-retention",
+    "partial-init-cleanup",
+    "reentrancy-guards"
+  ],
+  "consumes": [
+    "application-init-step-shutdown-callbacks"
+  ],
+  "dependencies": [
+    {
+      "module_id": "kloz-platform",
+      "relation": "optional-adapter",
+      "status": "adapter-ready",
+      "scope": "A host application may pass Kloz platform services through callback context; CO core does not require or call Kloz."
+    }
+  ],
+  "boundaries": [
+    "CO is not an RTOS, thread scheduler, or interrupt scheduler.",
+    "CO does not allocate from a hidden heap or write MMIO.",
+    "The application serializes access from independent execution contexts."
+  ],
+  "verification": {
+    "host_tests": "Host unit tests are documented; run make test.",
+    "target_validation": "Target timing and callback behavior require application/board validation.",
+    "evidence": [
+      "README.md",
+      "docs/execution-model.md"
+    ]
+  },
+  "schema_version": 1,
+  "ecosystem": "SAMBU"
+}
