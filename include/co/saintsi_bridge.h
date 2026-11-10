@@ -1,13 +1,44 @@
 #ifndef CO_SAINTSI_BRIDGE_H
 #define CO_SAINTSI_BRIDGE_H
 
-/* Source-compatibility adapter. New code should include <dlo/riae_bridge.h>. */
-#include "dlo/riae_bridge.h"
+/* Optional observer bridge; consumer supplies both include roots. */
+#include <stdint.h>
 #include "co/runtime.h"
 #include "saintsi/health.h"
 
-#define CO_SAINTSI_SKIPPED_NOT_RUNNING DLO_RIAE_SKIPPED_NOT_RUNNING
-#define co_saintsi_register_runtime dlo_riae_register_runtime
-#define co_saintsi_refresh_runtime dlo_riae_refresh_runtime
+#ifdef __cplusplus
+extern "C" {
+#endif
 
+#define CO_SAINTSI_SKIPPED_NOT_RUNNING INT32_C(1)
+
+static inline saintsi_result_t co_saintsi_register_runtime(
+    saintsi_supervisor_t *supervisor,
+    uint32_t component_id,
+    uint32_t timeout_ticks,
+    uint32_t now_ticks)
+{
+    return saintsi_register_component(
+        supervisor, component_id, timeout_ticks, now_ticks);
+}
+
+/* Call after a completed poll. Faulted or stopped runtimes do not refresh. */
+static inline int32_t co_saintsi_refresh_runtime(
+    const co_runtime_t *runtime,
+    saintsi_supervisor_t *supervisor,
+    uint32_t component_id,
+    uint32_t now_ticks)
+{
+    if (runtime == 0 || supervisor == 0) {
+        return CO_EINVAL;
+    }
+    if (co_runtime_state(runtime) != CO_STATE_RUNNING) {
+        return CO_SAINTSI_SKIPPED_NOT_RUNNING;
+    }
+    return (int32_t)saintsi_heartbeat(supervisor, component_id, now_ticks);
+}
+
+#ifdef __cplusplus
+}
+#endif
 #endif
