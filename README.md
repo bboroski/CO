@@ -1,24 +1,24 @@
-# CO — Control Orchestrator
+# DLO — Deterministic Lifecycle Orchestrator
 
-**CO is a deterministic, allocation-free lifecycle runtime for embedded components.**
+**Детерминированная среда управления жизненным циклом встроенных компонентов на C11.**
 
-Its responsibility is to bring components online in a defined order, execute bounded work steps, preserve failure state, and perform cleanup after partial or complete initialization.
+DLO запускает компоненты в определённом порядке, выполняет ограниченные шаги работы, сохраняет состояние ошибок и корректно завершает частично или полностью инициализированные компоненты. Библиотека не создаёт потоки, не реализует RTOS и не захватывает аппаратные ресурсы скрытым образом.
 
-CO is the control layer of the NUN system. It is not an RTOS, does not create threads, and does not silently acquire hardware resources.
+[Українська](README.md) · [English](README.en.md) · [Русский](README.ru.md)
 
-## Initial implementation
+## Реализованные возможности
 
-- Explicit lifecycle state machine, including a guarded STEPPING state.
-- Caller-owned runtime object; no heap allocation.
-- Init, step, and shutdown callbacks.
-- Callback error propagation and fault retention.
-- Saturating execution-cycle counter.
-- Reentrant poll/stop attempts are rejected while a callback is executing.
-- Host unit tests for startup, execution failure, partial-init cleanup, and recursion guards.
+- Явная конечная машина состояний, включая защищённое состояние STEPPING.
+- Runtime-объект, память которого принадлежит вызывающей стороне; heap не используется.
+- Callback-интерфейсы init, step и shutdown.
+- Передача ошибок callbacks и сохранение последнего результата.
+- Насыщающий счётчик циклов исполнения.
+- Отклонение рекурсивных вызовов poll/stop, пока callback выполняется.
+- Host-тесты запуска, ошибки выполнения, очистки после частичной инициализации и защиты от рекурсии.
 
-## State machine
+## Модель состояний
 
-```text
+~~~text
 STOPPED --start--> STARTING --init OK--> RUNNING
                        |                    |
                     init error             poll
@@ -31,25 +31,33 @@ STOPPED --start--> STARTING --init OK--> RUNNING
 
 FAULTED --stop--> STOPPING --> STOPPED
 RUNNING --stop--> STOPPING --> STOPPED
-```
+~~~
 
-The shutdown callback is invoked after initialization has been attempted, including partial initialization failure. It must therefore tolerate partial setup.
+Callback завершения вызывается после попытки инициализации, включая частичную неудачу. Поэтому он обязан корректно обрабатывать неполную настройку.
 
-## Build and test
+## Сборка и тесты
 
-```sh
+~~~sh
 make test
 make clean
-```
+~~~
 
-Requires a C11 compiler and Make. GitHub Actions runs the host tests with GCC and Clang.
+Требуются C11-компилятор и Make. GitHub Actions проверяет host-тесты с GCC и Clang.
 
-## Boundary
+## Границы ответственности
 
-- CO does not own an allocator; runtime state is provided by the caller.
-- CO does not implement preemption or an interrupt scheduler.
-- CO does not write MMIO registers.
-- The caller serializes access from independent execution contexts.
-- Scheduling policy, priorities, deadlines, and watchdog policy remain explicit future modules.
+- DLO не владеет allocator: память runtime предоставляет вызывающая сторона.
+- DLO не реализует preemption или interrupt scheduler.
+- DLO не записывает MMIO-регистры.
+- Вызывающая сторона сериализует доступ из независимых контекстов исполнения.
+- Политика планирования, приоритеты, deadlines и watchdog остаются отдельными модулями.
 
-See [docs/execution-model.md](docs/execution-model.md).
+Публичное пространство имён переводится на префикс dlo_; исторические co_ символы остаются совместимыми псевдонимами на период миграции.
+
+## Документация
+
+- [Модель исполнения](docs/execution-model.md)
+
+## Лицензия
+
+MIT — см. [LICENSE](LICENSE).
