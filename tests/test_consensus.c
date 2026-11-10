@@ -8,7 +8,7 @@ int main(void)
     co_consensus_result_t result;
     const co_vote_t majority[] = {
         {1U, 10U, 7U, 1U}, {2U, 10U, 7U, 1U},
-        {3U, 20U, 7U, 1U}, {4U, 10U, 6U, 1U}
+        {3U, 10U, 7U, 1U}, {4U, 10U, 6U, 1U}
     };
     const co_vote_t split[] = {
         {1U, 10U, 7U, 1U}, {2U, 10U, 7U, 1U},
