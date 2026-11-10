@@ -75,3 +75,8 @@ MIT — див. [LICENSE](LICENSE).
 - [Контракт и правила использования](docs/BIOLOGY_DOMAIN_PACK.md)
 
 Справочный офлайн-набор для обучения и метаданных; он не управляет системами, устройствами и диагностикой.
+
+
+## Optional operator UI preview
+
+A browser-based inspector concept is available in `ui/`. It visualizes the library's actual domain contracts with a product-specific palette and connected abstract field. It is not embedded in the freestanding C11 library and does not make hardware or runtime claims. Open `ui/index.html` in a modern browser.
