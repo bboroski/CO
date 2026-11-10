@@ -61,3 +61,10 @@ The canonical API uses the dlo_ prefix. The legacy co/runtime.h header provides 
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+
+## One-knob launch
+
+- **Windows:** double-click `one.cmd` or run it from a terminal.
+- **Any OS:** `python one.py` performs the default host build and tests; `python one.py check` requests verification explicitly.
+- This remains an independent C11 library; host tests do not replace integration testing on the target platform.
