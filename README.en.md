@@ -52,7 +52,7 @@ Requires a C11 compiler and Make. GitHub Actions runs host tests with GCC and Cl
 - The caller serializes access from independent execution contexts.
 - Scheduling policy, priorities, deadlines, and watchdog policy remain separate modules.
 
-The public namespace is being migrated to the dlo_ prefix; historical co_ symbols remain compatibility aliases during the transition.
+The canonical API uses the dlo_ prefix. The legacy co/runtime.h header provides source-level aliases; binaries linked against previous symbols must be relinked.
 
 ## Documentation
 
