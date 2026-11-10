@@ -82,6 +82,6 @@ int main(void)
         assert(co_runtime_state(&failed_runtime) == CO_STATE_STOPPED);
     }
 
-    puts("DLO runtime tests: PASS");
+    puts("CO runtime tests: PASS");
     return 0;
 }
