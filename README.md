@@ -1,9 +1,18 @@
-<p align="center"><img src="assets/duck-ui/duck-mark.svg" alt="Duck mark" width="104" /></p>
+<p align="center"><img src="assets/amber-obsidian-mark.svg" alt="Duck mark" width="104" /></p>
 <h1 align="center">CO</h1>
 <p align="center"><strong>Deterministic Component Lifecycle Runtime</strong></p>
 <p align="center"><img src="https://img.shields.io/badge/STATUS-HOST-TESTED%20CORE-FFD600?style=for-the-badge&labelColor=111111" /><img src="https://img.shields.io/badge/CORE-C11-FFD600?style=for-the-badge&labelColor=111111" /><img src="https://img.shields.io/badge/LICENSE-TEXT%20MISSING-FFD600?style=for-the-badge&labelColor=111111" /></p>
 <p align="center"><a href="README.md">🇺🇦 Українська</a> · <a href="README.en.md">🇬🇧 English</a> · <a href="README.ru.md">🇷🇺 Русский</a></p>
 <hr />
+
+## Візуальна система · Amber–Obsidian v2
+
+Індивідуальна графічна мова **CO**: обсидіановий фон, багаторівневий графіт, сигнальний бурштин і окремий колір доменних даних. Стани залишаються читабельними без залежності лише від кольору; числові індикатори використовують моноширинну типографіку.
+
+<p align="center"><img src="assets/amber-obsidian-preview.svg" alt="CO interface concept preview" width="100%"></p>
+
+Деталі та межі реалізації: [специфікація інтерфейсу](docs/INTERFACE_DESIGN.md).
+
 
 <p align="center"><img src="assets/nun-mesh.svg" alt="CO in the repository integration mesh" width="100%"></p>
 
