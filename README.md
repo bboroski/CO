@@ -84,3 +84,7 @@ GitHub Actions запускає host-тести з GCC і Clang. One-knob runner
 
 - [Project-specific architecture mapping](docs/REAPER_DOMAIN_INTEGRATION.md)
 - [Canonical 50-pattern catalogue in SAMBU](https://github.com/bboroski/SAMBU/blob/main/data/reaper/engineering_patterns_50.tsv)
+
+## Reaper cycle lifecycle mapping
+
+[Lifecycle adapter contract](docs/REAPER_LIFECYCLE_ADAPTER.md) — maps bounded simulation work onto CO init/step/shutdown hooks without unbounded task creation.
