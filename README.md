@@ -84,3 +84,8 @@ GitHub Actions запускає host-тести з GCC і Clang. One-knob runner
 
 - [Project-specific architecture mapping](docs/REAPER_DOMAIN_INTEGRATION.md)
 - [Canonical 50-pattern catalogue in SAMBU](https://github.com/bboroski/SAMBU/blob/main/data/reaper/engineering_patterns_50.tsv)
+
+
+## Optional operator UI preview
+
+Open `ui/index.html` for the CO lifecycle inspector concept. The state graph maps the explicit runtime transitions and the controls simulate start, one step poll, callback fault and stop locally. This preview does not call the CO C library, create worker threads or implement a scheduler.
