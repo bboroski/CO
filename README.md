@@ -57,7 +57,7 @@ See [docs/execution-model.md](docs/execution-model.md).
 
 ## SAMBU Ecosystem integration
 
-<p align="center"><img src="assets/nun-mesh.svg" width="100%" alt="CO highlighted within the SAMBU Ecosystem project ecosystem"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/bboroski/SAMBU/main/assets/sambu-ecosystem-overview.svg" width="100%" alt="CO highlighted within the SAMBU Ecosystem project ecosystem"></p>
 
 CO owns deterministic component lifecycle: initialization, one bounded step per poll, fault retention and cleanup. Its portable state machine remains independent of any OS, hardware register map or health policy.
 
@@ -87,4 +87,4 @@ CO remains the allocation-free C11 lifecycle runtime. Kloz services are optional
 - **Shared integration protocol:** [Klipot protocol](https://github.com/bboroski/Klipot/blob/main/docs/INTEGRATION_PROTOCOL.md)
 
 
-[NUN Mesh portal](https://bboroski.github.io/Klipot/) · [Klipot integration protocol](https://github.com/bboroski/Klipot/blob/main/docs/INTEGRATION_PROTOCOL.md)
+[SAMBU Ecosystem portal](https://bboroski.github.io/Klipot/) · [Klipot integration protocol](https://github.com/bboroski/Klipot/blob/main/docs/INTEGRATION_PROTOCOL.md)
