@@ -1,0 +1,21 @@
+name: c11-host-tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  host-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [gcc, clang]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile and run unit tests
+        run: make clean test
+        env:
+          CC: ${{ matrix.compiler }}
