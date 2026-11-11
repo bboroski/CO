@@ -67,3 +67,7 @@ Related projects: [SAMBU](https://github.com/bboroski/SAMBU), [ToolNG](https://g
 ---
 
 **Built with love for predictable code and people.**
+
+## Product system
+
+Shared Duck design, multilingual documentation, capability governance, marketing-claim controls and release rules: [docs/PRODUCT_SYSTEM.md](docs/PRODUCT_SYSTEM.md). The 10,000-ID registry is planning capacity, not a claim of 10,000 shipped functions.
