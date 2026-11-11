@@ -1,0 +1,18 @@
+import Vapor
+import COBackendCore
+@main enum BackendServer {
+ static func main() async throws {
+  let config=try AppConfig.load(defaultServiceName:"CO")
+  let app=try await Application.make(.detect())
+  do {
+   app.http.server.configuration.hostname=config.hostname
+   app.http.server.configuration.port=config.port
+   app.middleware.use(TraceIDMiddleware())
+   app.get("health"){_ async -> HealthStatus in HealthStatus(service:config.serviceName,status:"ok",version:config.version)}
+   app.get("ready"){_ async -> HealthStatus in HealthStatus(service:config.serviceName,status:"ready",version:config.version)}
+   app.get("v1","health"){_ async -> HealthStatus in HealthStatus(service:config.serviceName,status:"ok",version:config.version)}
+   try await app.execute()
+   try await app.asyncShutdown()
+  } catch { app.logger.report(error:error); try? await app.asyncShutdown(); throw error }
+ }
+}
