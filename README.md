@@ -68,3 +68,11 @@ CO не володіє allocator і не створює heap; не реаліз�
 ---
 
 **Створено з любов'ю до передбачуваного коду та людей.**
+
+## NUN Mesh
+
+<p align="center"><img src="assets/nun-mesh.svg" alt="NUN Mesh — seven connected engineering repositories with versioned contracts" width="100%"></p>
+
+CO надає NUN Mesh детермінований життєвий цикл компонентів. Він відповідає за порядок init/step/shutdown та прозорі стани помилок, але не замінює RTOS, scheduler або апаратний watchdog.
+
+Адаптивний робочий простір і спільні UI-правила описані в [Adaptive Workspace Integration](docs/ADAPTIVE_WORKSPACE_INTEGRATION.md). Вони не додають цьому native-компоненту неіснуючий графічний runtime.
