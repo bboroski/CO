@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "repository": "bboroski/CO",
+  "role": "deterministic C11 component lifecycle runtime",
+  "maturity": "host-tested-core",
+  "domains": {
+    "architecture_governance": {
+      "status": "implemented",
+      "evidence": [
+        "docs/execution-model.md",
+        "docs/ECOSYSTEM_EXECUTION_CONTRACT.md"
+      ]
+    },
+    "data_quality": {
+      "status": "partial",
+      "evidence": [
+        "tests/test_compat.c"
+      ]
+    },
+    "dependency_orchestration": {
+      "status": "implemented",
+      "evidence": [
+        "src/runtime.c",
+        "include/co/runtime.h"
+      ]
+    },
+    "platform_interoperability": {
+      "status": "implemented",
+      "evidence": [
+        "include/co/platform.h",
+        "src/platform.c"
+      ]
+    },
+    "developer_automation": {
+      "status": "implemented",
+      "evidence": [
+        "Makefile",
+        "one.py"
+      ]
+    },
+    "resource_governance": {
+      "status": "partial",
+      "evidence": [
+        "docs/execution-model.md"
+      ]
+    },
+    "fault_resilience": {
+      "status": "implemented",
+      "evidence": [
+        "tests/test_runtime.c",
+        "src/runtime.c"
+      ]
+    },
+    "provenance_integrity": {
+      "status": "partial",
+      "evidence": [
+        "docs/FEDERATED_RELIABILITY.md"
+      ]
+    },
+    "engineering_knowledge": {
+      "status": "implemented",
+      "evidence": [
+        "docs/execution-model.md",
+        "docs/ECOSYSTEM_EXECUTION_CONTRACT.md"
+      ]
+    },
+    "build_execution": {
+      "status": "implemented",
+      "evidence": [
+        "Makefile",
+        "CMakeLists.txt"
+      ]
+    },
+    "release_governance": {
+      "status": "implemented",
+      "evidence": [
+        ".github/workflows/c11-host-tests.yml"
+      ]
+    },
+    "interface_observability": {
+      "status": "partial",
+      "evidence": [
+        "include/co/runtime.h"
+      ]
+    },
+    "testing_qualification": {
+      "status": "implemented",
+      "evidence": [
+        "tests/test_runtime.c",
+        "tests/test_compat.c",
+        "tests/test_platform.c"
+      ]
+    }
+  },
+  "integrations": [
+    {
+      "repository": "bboroski/Kloz",
+      "relation": "adapter",
+      "status": "partial"
+    },
+    {
+      "repository": "bboroski/SaintSI",
+      "relation": "optional",
+      "status": "partial"
+    },
+    {
+      "repository": "bboroski/ReaperCripple",
+      "relation": "optional",
+      "status": "partial"
+    },
+    {
+      "repository": "bboroski/SAMBU",
+      "relation": "metadata",
+      "status": "partial"
+    }
+  ]
+}

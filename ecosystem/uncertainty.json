@@ -1,0 +1,36 @@
+{
+  "schema_version": "klipot.uncertainty.v1",
+  "repository": "bboroski/CO",
+  "items": [
+    {
+      "id": "CO.lifecycle-policy",
+      "domain": "runtime",
+      "statement": "Scheduling, concurrency, deadlines and watchdog policy are outside the deterministic component lifecycle core.",
+      "feature": "Explicit policy adapter boundary and lifecycle result reporting",
+      "resolution_mode": "explicit-config",
+      "unknown_behavior": "Do not imply preemption, thread safety, scheduling or watchdog ownership.",
+      "verification": [
+        "Lifecycle transitions and callback errors are observable.",
+        "The caller owns serialization across independent contexts.",
+        "Unsupported policy requests return an explicit error."
+      ],
+      "implementation_status": "implemented",
+      "status": "open"
+    },
+    {
+      "id": "CO.timing-contract",
+      "domain": "runtime",
+      "statement": "No time budget or deadline is provided to a step callback by the current minimal runtime.",
+      "feature": "Optional caller-supplied timing budget adapter",
+      "resolution_mode": "feature-flag",
+      "unknown_behavior": "Do not claim deadline compliance or bounded execution time without an instrumented target adapter.",
+      "verification": [
+        "Timing source is injected by the caller.",
+        "Overrun is reported separately from callback success.",
+        "No scheduler or timing guarantee is added to the core implicitly."
+      ],
+      "implementation_status": "planned",
+      "status": "open"
+    }
+  ]
+}

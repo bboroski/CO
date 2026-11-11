@@ -1,29 +1,29 @@
 #!/usr/bin/env python3
-"""Abyssal Domain Audit: dependency-free verification for the 13-domain developer matrix."""
+"""Validate the 13-area engineering profile and its repository evidence."""
 from __future__ import annotations
 
 import argparse
 import json
-import sys
 from pathlib import Path
 from typing import Any
 
 DOMAINS = {
-    "lucifer": ("Architecture & governance", "Architecture decisions, identity, policy and invariants."),
-    "beelzebub": ("Data hygiene & entropy control", "Input validation, bounded data, cleanup and corruption containment."),
-    "leviathan": ("Dependency & event orchestration", "Module graphs, event flow, sequencing and state transitions."),
-    "asmodeus": ("Adapters & interoperability", "Versioned APIs, platform ports, bridges and integration boundaries."),
-    "belphegor": ("Developer automation", "CLI tools, generators, repeatable workflows and productivity tooling."),
-    "mammon": ("Resource governance", "Memory, CPU, storage, capacity, budgets and allocation limits."),
-    "satan": ("Fault handling & resilience", "Error paths, rollback, isolation, security boundaries and recovery policy."),
-    "belial": ("Provenance & integrity", "Evidence, checksums, manifests, traceability and change accountability."),
-    "astaroth": ("Code intelligence & knowledge", "Schemas, specifications, static analysis and technical documentation."),
-    "baal": ("Build & execution", "Build systems, runtime entry points, launch, packaging and execution."),
-    "adramelech": ("Release governance", "CI, quality gates, versioning, reproducible releases and audit policy."),
-    "ariel": ("Developer interface & observability", "IDE/GUI, logs, reports, diagnostics and visualization."),
-    "pazuzu": ("Health & verification", "Tests, fuzzing, health checks, timeouts and target qualification."),
+    "architecture_governance": ("Architecture and governance", "Identity, policy, invariants, and technical decision records."),
+    "data_quality": ("Data quality", "Input validation, bounded data, cleanup, and corruption containment."),
+    "dependency_orchestration": ("Dependency orchestration", "Module graphs, event flow, sequencing, and state transitions."),
+    "platform_interoperability": ("Platform interoperability", "Versioned APIs, ABI contracts, adapters, and cross-target boundaries."),
+    "developer_automation": ("Developer automation", "CLI tools, generators, repeatable workflows, and productivity tooling."),
+    "resource_governance": ("Resource governance", "Memory, CPU, storage, capacity, budgets, and allocation limits."),
+    "fault_resilience": ("Fault resilience", "Error paths, rollback, isolation, recovery, and fail-safe behavior."),
+    "provenance_integrity": ("Provenance and integrity", "Evidence, checksums, manifests, traceability, and change accountability."),
+    "engineering_knowledge": ("Engineering knowledge", "Schemas, specifications, static analysis, and technical documentation."),
+    "build_execution": ("Build and execution", "Build systems, runtime entry points, launch, packaging, and execution."),
+    "release_governance": ("Release governance", "CI, quality gates, versioning, reproducible releases, and audit policy."),
+    "interface_observability": ("Interface and observability", "Developer interfaces, logs, reports, diagnostics, and visualization."),
+    "testing_qualification": ("Testing and qualification", "Tests, fuzzing, health checks, timeouts, and target qualification."),
 }
 STATUSES = {"implemented", "partial", "planned"}
+RELATIONS = {"adapter", "contract", "metadata", "optional", "planned"}
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -40,7 +40,7 @@ def audit(repo: Path, ecosystem_root: Path | None = None) -> dict[str, Any]:
     repo = repo.resolve()
     issues: list[str] = []
     try:
-        profile = read_json(repo / "abyssal.domains.json")
+        profile = read_json(repo / "engineering.domains.json")
     except ValueError as exc:
         return {"repository": str(repo), "ok": False, "issues": [str(exc)], "domains": []}
 
@@ -116,7 +116,7 @@ def audit(repo: Path, ecosystem_root: Path | None = None) -> dict[str, Any]:
         if target in seen:
             issues.append(f"duplicate integration: {target}")
         seen.add(target)
-        if not isinstance(relation, str) or relation not in {"adapter", "contract", "metadata", "optional", "planned"}:
+        if not isinstance(relation, str) or relation not in RELATIONS:
             issues.append(f"{target}: invalid integration relation {relation!r}")
         if not isinstance(state, str) or state not in STATUSES:
             issues.append(f"{target}: invalid integration status {state!r}")
@@ -136,7 +136,7 @@ def audit(repo: Path, ecosystem_root: Path | None = None) -> dict[str, Any]:
 
 def audit_workspace(root: Path) -> dict[str, Any]:
     reports = [audit(path, root) for path in sorted(root.iterdir())
-               if path.is_dir() and (path / "abyssal.domains.json").is_file()]
+               if path.is_dir() and (path / "engineering.domains.json").is_file()]
     return {"ok": bool(reports) and all(item["ok"] for item in reports), "repositories": reports}
 
 
@@ -148,11 +148,11 @@ def render(report: dict[str, Any], output_format: str) -> str:
             return "\n\n".join(render(item, "markdown") for item in report["repositories"])
         return "\n".join(render(item, "table") for item in report["repositories"])
     if output_format == "markdown":
-        lines = [f"# Abyssal Domain Audit — {report['repository']}", "",
+        lines = [f"# Engineering Domain Coverage — {report['repository']}", "",
                  f"- **Result:** {'PASS' if report['ok'] else 'FAIL'}",
                  f"- **Role:** {report.get('role', 'unspecified')}",
                  f"- **Maturity:** {report.get('maturity', 'unspecified')}", "",
-                 "| Domain | Status | Evidence |", "|---|---|---|"]
+                 "| Engineering area | Status | Evidence |", "|---|---|---|"]
         for row in report.get("domains", []):
             lines.append(f"| {row['id']} — {row['title']} | {row['status']} | {', '.join(row['evidence']) or '—'} |")
         if report.get("issues"):
@@ -161,7 +161,7 @@ def render(report: dict[str, Any], output_format: str) -> str:
     counts = report.get("counts", {})
     lines = [f"{report['repository']}  {'PASS' if report['ok'] else 'FAIL'}",
              f"implemented={counts.get('implemented', 0)}  partial={counts.get('partial', 0)}  planned={counts.get('planned', 0)}"]
-    lines += [f"  {row['id']:<12} {row['status']:<11} {row['title']}" for row in report.get("domains", [])]
+    lines += [f"  {row['id']:<28} {row['status']:<11} {row['title']}" for row in report.get("domains", [])]
     lines += [f"ERROR: {item}" for item in report.get("issues", [])]
     return "\n".join(lines)
 
@@ -174,19 +174,20 @@ def self_test() -> int:
         (root / "docs/policy.md").write_text("policy", encoding="utf-8")
         profile = {"schema_version": 1, "repository": "example/demo", "role": "self-test",
                    "domains": {key: {"status": "planned", "evidence": []} for key in DOMAINS}}
-        profile["domains"]["lucifer"] = {"status": "implemented", "evidence": ["docs/policy.md"]}
-        target = root / "abyssal.domains.json"
+        profile["domains"]["architecture_governance"] = {
+            "status": "implemented", "evidence": ["docs/policy.md"]}
+        target = root / "engineering.domains.json"
         target.write_text(json.dumps(profile), encoding="utf-8")
         assert audit(root)["ok"]
-        profile["domains"]["lucifer"]["evidence"] = ["docs/missing.md"]
+        profile["domains"]["architecture_governance"]["evidence"] = ["docs/missing.md"]
         target.write_text(json.dumps(profile), encoding="utf-8")
         assert not audit(root)["ok"]
-    print("Abyssal Domain Audit self-test: PASS")
+    print("Engineering Domain Coverage self-test: PASS")
     return 0
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Validate the 13-domain engineering profile and its evidence.")
+    parser = argparse.ArgumentParser(description="Validate the 13-area engineering profile and its evidence.")
     parser.add_argument("--repo", type=Path, default=Path.cwd(), help="repository root")
     parser.add_argument("--ecosystem-root", type=Path, help="directory containing sibling repositories")
     parser.add_argument("--all", action="store_true", help="audit all direct child repositories under --ecosystem-root")
