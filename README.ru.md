@@ -1,7 +1,8 @@
 
-> **Фирменная палитра:** сигнальный жёлтый `#FFD600`; глубокий чёрный `#111111`.
 <p align="center"><img src="assets/duck-ui/duck-mark.svg" alt="CO mark" width="92"></p>
 <h1 align="center">CO</h1>
+
+> **Фирменная палитра:** сигнальный жёлтый `#FFD600`; глубокий чёрный `#111111`.
 <p align="center"><strong>Deterministic Component Lifecycle Runtime</strong></p>
 <p align="center"><img src="https://img.shields.io/badge/STATUS-HOST%20TESTED%20CORE-FFD600?style=for-the-badge&labelColor=111111"><img src="https://img.shields.io/badge/CORE-C11-FFD600?style=for-the-badge&labelColor=111111"><img src="https://img.shields.io/badge/LICENSE-NOT%20DECLARED-FFD600?style=for-the-badge&labelColor=111111"></p>
 <p align="center"><a href="README.md">🇺🇦 Українська</a> · <a href="README.en.md">🇬🇧 English</a> · <a href="README.ru.md">🇷🇺 Русский</a></p>
