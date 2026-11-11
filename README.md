@@ -6,6 +6,14 @@
 <sub>Оновлено: 2026-11-11</sub>
 
 
+
+## NEON SYNDICATE — візуальна система
+
+<p align="center"><img src="assets/neon-syndicate/overview.svg" alt="CO — high-resolution NEON SYNDICATE visual concept" width="1200"></p>
+<p align="center"><em>Векторний макет 1920×1200: C RUNTIME LIBRARY / ARCHITECTURE VISUAL. Це дизайн-візуалізація, а не скриншот запущеної програми або live-телеметрія.</em></p>
+
+[Брендбук і правила інтерфейсу](design/NEON_SYNDICATE.md) · [Токени дизайну](design/neon-syndicate.tokens.json)
+
 ## Навігація
 
 - [Поточні можливості](#поточні-можливості)
@@ -43,7 +51,7 @@ CO — компактний C11 runtime-компонент без графічн
 
 <p align="center"><img src="assets/nun-mesh.svg" alt="Карта NUN Mesh: незалежні компоненти та версіоновані контракти" width="960"></p>
 <p align="center"><em>Карта екосистеми</em></p>
-<p align="center"><img src="assets/duck-ui/duck-ui-preview.svg" alt="Спільний дизайн Duck Black Yellow, не GUI CO" width="960"></p>
+<p align="center"><img src="assets/neon-syndicate/overview.svg" alt="Спільний дизайн Duck Black Yellow, не GUI CO" width="960"></p>
 
 ## Інженерна якість
 - Перевіряйте збірку й тести саме для цільової платформи; host CI не замінює hardware qualification.
@@ -65,7 +73,7 @@ CO — компактний C11 runtime-компонент без графічн
 Репозиторії зберігають власні назви, код, API, цикли випуску та межі відповідальності. Інтеграція означає узгоджені контракти, а не автоматичне злиття незалежних runtime.
 
 ## Дизайн і документація
-Базовий інтерфейсний напрям екосистеми — **Duck Black / Yellow**: чорні поверхні, жовтий акцент для дій і станів, читабельна типографіка, доступний контраст, клавіатурна навігація та підтримка reduced motion. Деталі дивіться в [design/DUCK_UI_SYSTEM.md](design/DUCK_UI_SYSTEM.md), якщо файл присутній у цьому репозиторії.
+Базовий інтерфейсний напрям екосистеми — **NEON SYNDICATE**: чорні поверхні, жовтий акцент для дій і станів, читабельна типографіка, доступний контраст, клавіатурна навігація та підтримка reduced motion. Деталі дивіться в [design/NEON_SYNDICATE.md](design/NEON_SYNDICATE.md), якщо файл присутній у цьому репозиторії.
 
 ## Ліцензія
 Ліцензію не оголошено; файл LICENSE відсутній.
