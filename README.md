@@ -42,3 +42,8 @@ CO не реалізує preemption, interrupt scheduler або MMIO. Викли
 
 ---
 **Створено з любов'ю до інженерії, системності та людей.**
+
+
+## Інтерфейсний стандарт і внесок
+
+CO залишається headless C11-runtime; графічний інтерфейс може бути лише зовнішнім host-клієнтом, який чесно показує реальні стани та не обходить lifecycle/reentrancy checks. Вимоги до нього: [GUI Design Standard](docs/gui/GUI_DESIGN_STANDARD.md). Чинна візуальна система: [Duck UI system](design/DUCK_UI_SYSTEM.md). Шаблон PR: [.github/PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md).
