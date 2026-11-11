@@ -1,3 +1,5 @@
+
+> **Фирменная палитра:** сигнальный жёлтый `#FFD600`; глубокий чёрный `#111111`.
 <p align="center"><img src="assets/duck-ui/duck-mark.svg" alt="CO mark" width="92"></p>
 <h1 align="center">CO</h1>
 <p align="center"><strong>Deterministic Component Lifecycle Runtime</strong></p>
