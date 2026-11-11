@@ -72,3 +72,10 @@ CO — компактний C11 runtime-компонент без графічн
 
 ---
 **Створено з любов'ю до інженерії, системності та людей.**
+
+
+## Component Lifecycle Monitor GUI
+
+The standalone [CO Lifecycle Monitor prototype](docs/gui/index.html) and [1600×900 vector preview](docs/gui/preview.svg) visualize component states, caller-owned runtime registration, callback traces and fault paths. **All traces and counts are illustrative; this browser UI does not invoke callbacks or observe a live CO runtime.**
+
+The UI supports mobile layouts, keyboard-operable navigation, filtering and reduced motion. See [execution model](docs/execution-model.md), [signal pipeline lifecycle](docs/SIGNAL_PIPELINE_LIFECYCLE.md) and [runtime architecture mapping](docs/ARCHETYPE_RUNTIME_MAPPING.md).
