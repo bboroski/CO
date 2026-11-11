@@ -24,8 +24,8 @@ $(COMPAT_TEST): src/runtime.c tests/test_compat.c include/co/runtime.h | $(BUILD
 $(PLATFORM_TEST): src/platform.c tests/test_platform.c include/co/platform.h | $(BUILD_DIR)
 	$(CC) $(CPPFLAGS) $(CFLAGS) src/platform.c tests/test_platform.c -o $@
 
-$(DIAGNOSTICS_TEST): src/diagnostics.c tests/test_diagnostics.c include/co/diagnostics.h include/co/runtime.h | $(BUILD_DIR)
-	$(CC) $(CPPFLAGS) $(CFLAGS) src/diagnostics.c tests/test_diagnostics.c -o $@
+$(DIAGNOSTICS_TEST): src/runtime.c src/diagnostics.c tests/test_diagnostics.c include/co/diagnostics.h include/co/runtime.h | $(BUILD_DIR)
+	$(CC) $(CPPFLAGS) $(CFLAGS) src/runtime.c src/diagnostics.c tests/test_diagnostics.c -o $@
 
 $(DEPENDENCY_TEST): tests/test_dependency.c include/co/dependency.h | $(BUILD_DIR)
 	$(CC) $(CPPFLAGS) $(CFLAGS) tests/test_dependency.c -o $@
