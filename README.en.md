@@ -18,10 +18,11 @@ python one.py check
 ```
 
 ## Scope
+CO is a C11 runtime without a graphical interface; no genuine application screenshots are available.
+
 CO does not implement preemption, an interrupt scheduler or MMIO. The caller serializes access across independent contexts; scheduling and watchdog policy remain external.
 
 ## Project documentation
-![NUN Mesh repository map](assets/nun-mesh.svg)
 
 *Static ecosystem diagram, not a CO application screenshot.*
 
