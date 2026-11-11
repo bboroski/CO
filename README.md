@@ -1,7 +1,9 @@
 <!-- Title: CO — deterministic allocation-free C11 component lifecycle runtime -->
 <p align="center"><img src="assets/duck-ui/duck-mark.svg" alt="Логотип CO" width="76"></p>
 
-# CO — детермінований C11 runtime життєвого циклу компонентів
+# CO
+
+> **Visual identity:** Duck Black / Yellow — accent `#FFD600`, primary ink `#111111`.
 
 [![Host tests](https://github.com/bboroski/CO/actions/workflows/c11-host-tests.yml/badge.svg?branch=main)](https://github.com/bboroski/CO/actions/workflows/c11-host-tests.yml)
 
