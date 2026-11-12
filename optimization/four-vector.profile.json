@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "repository": "bboroski/CO",
+  "optimization_method": "four-vector",
+  "status": "baseline_pending",
+  "implementation_status": "profile_added",
+  "product_role": "component-lifecycle-runtime",
+  "detected_stack": "c",
+  "vectors": {
+    "physics": {
+      "focus": "latency-throughput-resource-cost",
+      "metrics": [
+        "init_latency",
+        "step_latency",
+        "shutdown_latency",
+        "fault_detection_latency"
+      ],
+      "baseline": "not_measured"
+    },
+    "biology": {
+      "focus": "bounded-resource-lifecycle-and-feedback",
+      "controls": [
+        "cleanup_guarantees",
+        "bounded_retry",
+        "idempotent_shutdown"
+      ],
+      "baseline": "not_measured"
+    },
+    "technology": {
+      "focus": "modularity-contracts-security",
+      "boundaries": [
+        "state_machine",
+        "callbacks",
+        "runtime_sequencing"
+      ]
+    },
+    "sambo": {
+      "focus": "reuse-leverage-and-safe-deferral",
+      "strategies": [
+        "reuse_callbacks",
+        "scheduler_gated_defer"
+      ]
+    }
+  },
+  "verification": {
+    "commands": [
+      "make test"
+    ],
+    "results": "not_run_in_this_change"
+  },
+  "guardrails": [
+    "No recursive polling or double cleanup"
+  ],
+  "acceptance": [
+    "baseline recorded on a named platform",
+    "no unbounded queues caches retries or loops",
+    "errors and partial results remain explicit",
+    "public contracts remain compatible or are versioned",
+    "performance claims have before-after evidence"
+  ],
+  "updated_at": "2026-11-11"
+}
