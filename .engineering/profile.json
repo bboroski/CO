@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "standard_id": "PERSONA-ENG-STD",
+  "repository": "bboroski/CO",
+  "project": {
+    "domain": "Deterministic C11 component lifecycle runtime",
+    "mission": "Provide predictable component initialization, stepping, fault handling, and shutdown without requiring a full RTOS.",
+    "maturity": "host-tested-core"
+  },
+  "architecture": {
+    "preserve_existing_boundaries": true,
+    "primary_technologies": [
+      "C11",
+      "caller-provided runtime storage",
+      "explicit lifecycle state machine",
+      "callback API and host tests"
+    ],
+    "explicit_non_goals": [
+      "Does not implement preemption",
+      "Does not provide an interrupt scheduler",
+      "Does not provide MMIO or device drivers",
+      "Caller owns serialization across independent execution contexts"
+    ]
+  },
+  "safety_boundaries": [
+    "Preserve explicit lifecycle transitions and reject invalid/reentrant operations.",
+    "Keep heap allocation and hidden global ownership out of the runtime contract.",
+    "Propagate callback failures and preserve deterministic fault/shutdown semantics.",
+    "Scheduling, priorities, deadlines, and watchdog integration remain external responsibilities."
+  ],
+  "native_validation": {
+    "status": "defined",
+    "commands": [
+      "make test",
+      "make clean",
+      "python one.py check"
+    ],
+    "evidence_note": "Host tests validate runtime contracts on the host; target-specific timing and interrupt claims need target evidence."
+  },
+  "required_gates": [
+    "profile-validation",
+    "native-project-checks",
+    "architecture-and-compatibility-review",
+    "security-and-privacy-review",
+    "documentation-review",
+    "human-review",
+    "target-qualification-when-applicable"
+  ],
+  "merge_policy": {
+    "pull_request_required": true,
+    "direct_main_push_policy": "enforce-with-branch-rules",
+    "bypass_required_checks": false,
+    "release_requires_separate_qualification": true
+  },
+  "status_vocabulary": [
+    "PROPOSED",
+    "PLANNED",
+    "IMPLEMENTED",
+    "TESTED",
+    "VERIFIED",
+    "MERGED",
+    "RELEASED",
+    "BLOCKED"
+  ]
+}
