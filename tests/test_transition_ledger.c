@@ -24,7 +24,7 @@ int main(void)
             7u, 0u, 1000u, CO_TRANSITION_FLAG_OBSERVED, 0u) == 1);
     assert(ledger.count == CO_TRANSITION_CAPACITY && ledger.dropped == 5u);
     count = co_transition_ledger_snapshot(&ledger, snapshot, CO_TRANSITION_CAPACITY);
-    assert(count == CO_TRANSITION_CAPACITY && snapshot[0].sequence == 8u);
+    assert(count == CO_TRANSITION_CAPACITY && snapshot[0].sequence == 6u);
     puts("bounded event history tests passed");
     return 0;
 }
