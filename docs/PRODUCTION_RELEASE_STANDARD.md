@@ -1,8 +1,8 @@
 # Production Release Standard
 
-**Repository:** bboroski/CO  
-**Default branch:** `main`  
-**Project profile:** Native/Makefile-driven project with Python maintenance tooling  
+**Repository:** bboroski/CO
+**Default branch:** `main`
+**Project profile:** Native/Makefile-driven project with Python maintenance tooling
 **Existing workflow inventory:** 6 workflow file(s) were visible at the time this baseline was prepared.
 
 ## Purpose and scope
