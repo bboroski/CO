@@ -25,6 +25,12 @@
       "relation": "optional-adapter",
       "status": "adapter-ready",
       "scope": "A host application may pass Kloz platform services through callback context; CO core does not require or call Kloz."
+    },
+    {
+      "module_id": "saintsi-assurance",
+      "relation": "optional-adapter",
+      "status": "adapter-ready",
+      "scope": "Optional health observer bridge; refresh only after a completed successful poll and never actuates hardware."
     }
   ],
   "boundaries": [
