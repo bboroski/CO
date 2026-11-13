@@ -1,0 +1,35 @@
+{
+  "schema_version": "jm.adapter-contracts.v1",
+  "repository": "bboroski/CO",
+  "module_id": "co-lifecycle",
+  "contracts": [
+    {
+      "id": "kloz-platform-context-v1",
+      "provider_module_id": "kloz-platform",
+      "provider": "bboroski/Kloz",
+      "kind": "optional-platform-context-adapter",
+      "status": "planned",
+      "contract_version": "1",
+      "local_paths": [],
+      "provider_paths": [
+        "include/kloz/platform.h"
+      ],
+      "notes": "Future application-owned context composition; the current CO platform header reports compile-target facts and is not a Kloz adapter."
+    },
+    {
+      "id": "saintsi-runtime-observer-v1",
+      "provider_module_id": "saintsi-assurance",
+      "provider": "bboroski/SaintSI",
+      "kind": "optional-health-observer-adapter",
+      "status": "implemented",
+      "contract_version": "1",
+      "local_paths": [
+        "include/co/saintsi_bridge.h"
+      ],
+      "provider_paths": [
+        "include/saintsi/health.h"
+      ],
+      "notes": "Heartbeat refresh is allowed only after a completed successful runtime poll."
+    }
+  ]
+}
