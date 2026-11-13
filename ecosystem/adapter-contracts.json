@@ -8,15 +8,13 @@
       "provider_module_id": "kloz-platform",
       "provider": "bboroski/Kloz",
       "kind": "optional-platform-context-adapter",
-      "status": "adapter-ready",
+      "status": "planned",
       "contract_version": "1",
-      "local_paths": [
-        "include/co/platform.h"
-      ],
+      "local_paths": [],
       "provider_paths": [
         "include/kloz/platform.h"
       ],
-      "notes": "Platform facts are supplied through application-owned context; CO does not call Kloz implicitly."
+      "notes": "Future application-owned context composition; the current CO platform header reports compile-target facts and is not a Kloz adapter."
     },
     {
       "id": "saintsi-runtime-observer-v1",
