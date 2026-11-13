@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "architecture": "NUN Mesh Multi-Axis Layer Fabric (MALF)",
+  "repository": "bboroski/CO",
+  "role": "Deterministic, allocation-free C11 component lifecycle runtime",
+  "maturity": "Host-tested C11 core; scheduling and target timing belong to the consuming application/platform.",
+  "layers": [
+    {
+      "id": "L0",
+      "name": "Experience",
+      "responsibility": "CLI, GUI and operator surface."
+    },
+    {
+      "id": "L1",
+      "name": "Interface contracts",
+      "responsibility": "Public APIs, ABIs, schemas, events and versioned formats."
+    },
+    {
+      "id": "L2",
+      "name": "Application orchestration",
+      "responsibility": "Use cases, sequencing, lifecycle and transaction boundaries."
+    },
+    {
+      "id": "L3",
+      "name": "Domain kernel",
+      "responsibility": "Deterministic models, algorithms and invariants."
+    },
+    {
+      "id": "L4",
+      "name": "Policy and capabilities",
+      "responsibility": "Authorization, resource limits, safety and allowed operations."
+    },
+    {
+      "id": "L5",
+      "name": "Ports and contracts",
+      "responsibility": "Abstract platform, clock, storage, memory and device services."
+    },
+    {
+      "id": "L6",
+      "name": "Adapters and platform",
+      "responsibility": "Concrete OS, CPU, board and hardware implementations."
+    },
+    {
+      "id": "L7",
+      "name": "State and data",
+      "responsibility": "Persisted state, caller-owned memory, schemas and artifacts."
+    },
+    {
+      "id": "L8",
+      "name": "Runtime and delivery",
+      "responsibility": "Build, boot, packaging, deployment and execution composition."
+    },
+    {
+      "id": "L9",
+      "name": "Assurance and evidence",
+      "responsibility": "Tests, static analysis, resource proofs and target qualification."
+    }
+  ],
+  "placement": [
+    {
+      "layer": "L0",
+      "area": "Consumer integration surface",
+      "components": [
+        "public C API",
+        "callbacks"
+      ],
+      "status": "mapped-from-repository-scope"
+    },
+    {
+      "layer": "L1",
+      "area": "Lifecycle contracts",
+      "components": [
+        "init/step/shutdown signatures",
+        "runtime state ABI"
+      ],
+      "status": "mapped-from-repository-scope"
+    },
+    {
+      "layer": "L2",
+      "area": "Lifecycle orchestration",
+      "components": [
+        "start flow",
+        "poll/step flow",
+        "stop flow"
+      ],
+      "status": "mapped-from-repository-scope"
+    },
+    {
+      "layer": "L3",
+      "area": "Lifecycle state machine",
+      "components": [
+        "state machine",
+        "fault model",
+        "reentrancy guards"
+      ],
+      "status": "mapped-from-repository-scope"
+    },
+    {
+      "layer": "L4",
+      "area": "Execution and resource policy",
+      "components": [
+        "no-hidden-heap invariant",
+        "reentrancy policy",
+        "bounded callback contract"
+      ],
+      "status": "mapped-from-repository-scope"
+    },
+    {
+      "layer": "L5",
+      "area": "Host/platform service ports",
+      "components": [
+        "opaque callback context",
+        "optional time/diagnostic ports"
+      ],
+      "status": "mapped-from-repository-scope"
+    },
+    {
+      "layer": "L6",
+      "area": "Application adapters",
+      "components": [
+        "component adapters",
+        "optional Kloz bridge"
+      ],
+      "status": "mapped-from-repository-scope"
+    },
+    {
+      "layer": "L7",
+      "area": "Runtime state",
+      "components": [
+        "caller-owned runtime object",
+        "component context"
+      ],
+      "status": "mapped-from-repository-scope"
+    },
+    {
+      "layer": "L8",
+      "area": "Build and composition",
+      "components": [
+        "Makefile",
+        "CMake",
+        "static library integration"
+      ],
+      "status": "mapped-from-repository-scope"
+    },
+    {
+      "layer": "L9",
+      "area": "Lifecycle assurance",
+      "components": [
+        "unit tests",
+        "fault-path tests",
+        "compiler checks"
+      ],
+      "status": "mapped-from-repository-scope"
+    }
+  ],
+  "vertical_slices": [
+    {
+      "id": "slice-1",
+      "title": "Component startup",
+      "flow": "Consumer registers callbacks → validate descriptor → initialize in order → expose RUNNING only after success."
+    },
+    {
+      "id": "slice-2",
+      "title": "Bounded poll",
+      "flow": "Application schedules poll → reentrancy guard → one deterministic step → propagate status → optional external heartbeat."
+    },
+    {
+      "id": "slice-3",
+      "title": "Fault and shutdown",
+      "flow": "Callback failure → retain FAULTED state → reject invalid transitions → controlled shutdown/cleanup with test evidence."
+    }
+  ],
+  "dependency_rules": [
+    "presentation-calls-application-via-versioned-interface",
+    "application-depends-on-domain-policy-and-ports",
+    "platform-adapters-implement-ports",
+    "state-is-explicit-and-caller-owned-or-behind-storage-port",
+    "runtime-composes-inner-layers",
+    "cross-repository-integration-requires-versioned-contract"
+  ],
+  "cross_cutting": [
+    "safety-and-security",
+    "reliability-and-bounds",
+    "compatibility-and-versioning",
+    "observability-and-provenance",
+    "measured-performance",
+    "accessibility-where-applicable"
+  ],
+  "guardrails": "CO is not a preemptive scheduler, RTOS, interrupt scheduler, watchdog manager or MMIO layer. The application serializes independent execution contexts. Optional Kloz/SaintSI bridges stay adapters; the CO core has no hard dependency on them.",
+  "status_note": "Architecture mapping only; it does not assert new code or target qualification."
+}
