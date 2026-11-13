@@ -23,8 +23,8 @@
     {
       "module_id": "kloz-platform",
       "relation": "optional-adapter",
-      "status": "adapter-ready",
-      "scope": "A host application may pass Kloz platform services through callback context; CO core does not require or call Kloz."
+      "status": "planned",
+      "scope": "Future optional application-owned platform context; no direct CO-to-Kloz adapter header exists yet. CO remains independently buildable."
     },
     {
       "module_id": "saintsi-assurance",
