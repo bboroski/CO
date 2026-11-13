@@ -84,3 +84,8 @@ CO — компактний C11 runtime-компонент без графічн
 ## Федерація Hellduck
 
 Цей репозиторій входить до федерації [Hellduck](https://github.com/bboroski/Hellduck) — спільного каталогу проєктів, контрактних зв’язків і станів інтеграції. Вихідний код, API, тести та цикл випуску залишаються відповідальністю цього репозиторію; Hellduck індексує зв’язки й не завантажує та не виконує код учасників. Практичні сценарії взаємодії, типи адаптерів і межі сумісності: [Integration Playbook](https://github.com/bboroski/Hellduck/blob/main/docs/INTEGRATION_PLAYBOOK.md).
+
+
+## LOVE-50 engineering profile
+
+This repository's application of the Chinese-maxim principles is documented in [CO LOVE-50 adapter](docs/LOVE_50_ADAPTER.md). The profile is an engineering mapping, not a claim of implemented or verified runtime behaviour.
