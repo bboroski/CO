@@ -1,0 +1,99 @@
+{
+  "schema_version": "bboroski.modular-monolith-profile.v1",
+  "project": "CO",
+  "maturity": "host-tested-core",
+  "architecture": {
+    "mode": "static-library",
+    "scope": "Bounded C11 component lifecycle runtime with explicit start, poll, fault and shutdown transitions.",
+    "runtime_boundary": "Library is hosted by an application; scheduling and cross-thread serialization remain caller responsibilities.",
+    "composition_rule": "Link the lifecycle library into an application and register callbacks through the versioned public structure."
+  },
+  "entrypoints": [
+    {
+      "path": "src/runtime.c",
+      "kind": "library-implementation"
+    },
+    {
+      "path": "include/co/runtime.h",
+      "kind": "public-api"
+    }
+  ],
+  "components": [
+    {
+      "id": "lifecycle-machine",
+      "responsibility": "STOPPED, STARTING, RUNNING, STEPPING, FAULTED and STOPPING states.",
+      "status": "implemented",
+      "integration": "in-process"
+    },
+    {
+      "id": "callback-execution",
+      "responsibility": "Caller-provided init, step and shutdown hooks.",
+      "status": "implemented",
+      "integration": "in-process"
+    },
+    {
+      "id": "recursion-guards",
+      "responsibility": "Reject unsafe nested poll/stop operations during callbacks.",
+      "status": "implemented",
+      "integration": "in-process"
+    },
+    {
+      "id": "runtime-diagnostics",
+      "responsibility": "Expose state, last result and cycle count.",
+      "status": "implemented",
+      "integration": "in-process"
+    }
+  ],
+  "dependencies": [
+    {
+      "project": "Kloz",
+      "relationship": "optional platform callback composition",
+      "runtime_dependency": false
+    },
+    {
+      "project": "SaintSI",
+      "relationship": "optional heartbeat observer",
+      "runtime_dependency": false
+    }
+  ],
+  "preserved_boundaries": [
+    "No threads, scheduler or preemption are provided.",
+    "The caller serializes calls from independent execution contexts.",
+    "Shutdown and rollback semantics remain explicit."
+  ],
+  "forbidden_composition": [
+    "No implicit retry after callback failure.",
+    "No hidden thread creation or timer service.",
+    "No recursive callback re-entry."
+  ],
+  "build_profiles": [
+    {
+      "id": "host-c11",
+      "status": "declared",
+      "commands": [
+        "make test",
+        "make clean"
+      ],
+      "evidence": [
+        "Makefile",
+        "src/runtime.c",
+        "tests/test_runtime.c"
+      ]
+    },
+    {
+      "id": "e2k-toolchain",
+      "status": "declared",
+      "commands": [
+        "cmake -S . -B build-e2k -DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/e2k-linux-lcc.cmake"
+      ],
+      "evidence": [
+        "cmake/toolchains/e2k-linux-lcc.cmake",
+        "include/co/runtime.h"
+      ]
+    }
+  ],
+  "gaps": [
+    "Run reentrancy, fault and partial-initialization tests across supported compilers.",
+    "Document caller concurrency requirements at every public integration site."
+  ]
+}
